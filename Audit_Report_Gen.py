@@ -2,13 +2,16 @@ from openpyxl import load_workbook
 from openpyxl import Workbook
 import re
 
-def matching(wb1, wb2, Week, tail):
+def matching(wb1, wb2, Week, tail, order1, order2, output_order):
+    # order1 = ['Main', 'Product', 'Product', 'Main']
+    # order2 = ['Main', 'Product', 'Point', 'STR']
+    # output_order = ['Main', 'Product', 'W25P_Point', 'W25M_STR']
     wb_out = Workbook()
-    for sheetname in ['Main', 'Product']:
+    for j in range(len(order1)):
+        sheet1 = wb1[order1[j]]
+        sheet2 = wb2[order2[j]]
+        ws = wb_out.create_sheet(output_order[j])
         i = 1
-        sheet1 = wb1[sheetname]
-        sheet2 = wb2[sheetname]
-        ws = wb_out.create_sheet(sheetname)
         for row1 in sheet1.iter_rows(max_col=tail, values_only=True):
             cell_output = cell_data(row1)
             match = False
@@ -36,11 +39,14 @@ def cell_data(row):
         return cells
 
 tail = 2
-Week = 20
-# folder = 'C:\\Users\\Yvonne\\Documents\\Results\\'
-folder = 'C:\\Users\\Yvonne\\Downloads\\'
+Week = 27
+order1 = ['Main', 'Product', 'STR']
+order2 = ['Main', 'Product', 'STR']
+output_order = ['Main', 'Product', 'STR']
+folder = 'C:\\Users\\Yvonne\\Documents\\Results\\'
+# folder = 'C:\\Users\\Yvonne\\Downloads\\'
 
 wb1 = load_workbook(folder + '2021_W' + str(Week-1) + '.xlsx')
 wb2 = load_workbook(folder + '2021_W' +  str(Week)  + '.xlsx')
 
-matching(wb1, wb2, Week, tail)
+matching(wb1, wb2, Week, tail, order1, order2, output_order)
