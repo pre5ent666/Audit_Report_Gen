@@ -38,11 +38,11 @@ def cell_data(row):
 
 #--------------------------------------------- Input Settings -------------------------------------------------
 tail = 2
-Week = 36
+Week = 43
 comp = Week - 1
 order1 = ['Main', 'STR', 'SORP']    # This week
-order2 = ['Main', 'STR', 'Main']    # Last week
-output_order = ['Main', 'STR', 'W36P_W35M']
+order2 = ['Main', 'STR', 'SORP']    # Last week
+output_order = ['Main', 'STR', 'SORP']
 # order2 = ['Main', 'STR', 'Main']    # w-2 week
 # output_order = ['Main', 'STR', 'Production']
 
