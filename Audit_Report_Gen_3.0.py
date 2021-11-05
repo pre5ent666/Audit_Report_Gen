@@ -2,6 +2,19 @@ from openpyxl import load_workbook
 from openpyxl import Workbook
 import re
 
+#--------------------------------------------- Input Settings -------------------------------------------------
+tail = 2
+Week = 45
+cmp = Week - 1
+order1 = ['Main', 'STR', 'SORP']    # This week
+order2 = ['Main', 'STR', 'SORP']    # Last week
+output_order = ['Main', 'STR', 'SORP']
+# order2 = ['Main', 'STR', 'Main']    # w-2 week
+# output_order = ['Main', 'STR', 'Production']
+
+folder = 'C:\\Users\\Yvonne\\Documents\\Results\\'
+#--------------------------------------------------------------------------------------------------------------
+
 def matching(wb1, wb2, wb_out, tail, order1, order2, output_order):
     # wb_out = Workbook()
     for j in range(len(order1)):
@@ -19,12 +32,13 @@ def matching(wb1, wb2, wb_out, tail, order1, order2, output_order):
                 if str(cell_output[0]).lower() == str(cell_temp[0]).lower():
                     match = True
                     cell_output.append(cell_temp[1])
-                    ws.append(cell_output)
                     break
             if match == False:
                 cell_output.append('none')
-                ws.append(cell_output)
             i = i + 1
+            cell_output.append('=EQ(Left($B'+ str(i) + ',4),Left($C' + str(i) + ',4))')
+            ws.append(cell_output)
+        ws["D1"] = 'Same'
         print(output_order[j] + ': ' + str(i-1))
 
 def cell_data(row):
@@ -36,21 +50,8 @@ def cell_data(row):
                 cells.append(cell)
         return cells
 
-#--------------------------------------------- Input Settings -------------------------------------------------
-tail = 2
-Week = 43
-comp = Week - 1
-order1 = ['Main', 'STR', 'SORP']    # This week
-order2 = ['Main', 'STR', 'SORP']    # Last week
-output_order = ['Main', 'STR', 'SORP']
-# order2 = ['Main', 'STR', 'Main']    # w-2 week
-# output_order = ['Main', 'STR', 'Production']
-
-folder = 'C:\\Users\\Yvonne\\Documents\\Results\\'
-#--------------------------------------------------------------------------------------------------------------
-
 wb1 = load_workbook(folder + '\\All\\2021_W' +  str(Week)  + '.xlsx')
-wb2 = load_workbook(folder + '\\All\\2021_W' + str(comp) + '.xlsx')
+wb2 = load_workbook(folder + '\\All\\2021_W' + str(cmp) + '.xlsx')
 
 wb_out = Workbook()
 matching(wb1, wb2, wb_out, tail, order1, order2, output_order)
