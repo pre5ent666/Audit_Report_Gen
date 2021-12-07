@@ -6,7 +6,7 @@ import os
 
 #--------------------------------------------- Input Settings -------------------------------------------------
 tail = 2
-Week = 46
+Week = 47
 cmp = Week - 1
 order1 = ['Main', 'STR', 'SORP']    # This week
 order2 = ['Main', 'STR', 'SORP']    # Last week
@@ -15,7 +15,7 @@ folder = os.getcwd()
 #--------------------------------------------------------------------------------------------------------------
 
 def All_Results(Week, folder, Order):
-    os.mkdir(folder + '\\All')
+    # os.mkdir(folder + '\\All')
     output = Workbook() # Result Summary
     for Line_Name in Order:
         print('# ' + Line_Name + ' #')
@@ -24,7 +24,7 @@ def All_Results(Week, folder, Order):
         row_title = ['Original GM TC ID', Title] 
         ws.append(row_title) # add title
 
-        files = glob.glob(folder + Title +'_**.xlsx', recursive = True)
+        files = glob.glob(folder + '\\' + Title + '_**.xlsx', recursive = True)
         for xls in files :
             wb =  load_workbook(xls)
             Results_Sum(wb, ws, xls)
@@ -89,6 +89,6 @@ All_Results(Week, folder, order2)
 wb1 = load_workbook(folder + '\\All\\2021_W' +  str(Week)  + '.xlsx')
 wb2 = load_workbook(folder + '\\All\\2021_W' + str(cmp) + '.xlsx')
 wb_out = Workbook()
-os.mkdir(folder + '\\Audit_Report')
+# os.mkdir(folder + '\\Audit_Report')
 matching(wb1, wb2, wb_out, tail, order1, order2, output_order)
 wb_out.save(folder + '\\Audit_Report\\Audit_Report_W' + str(Week) + '.xlsx')
