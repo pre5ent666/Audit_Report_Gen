@@ -7,9 +7,9 @@ import pathlib
 #--------------------------------------------- Input Settings -------------------------------------------------
 Week1 = 202235
 Week2 = 202234
-order1 = ['Main_Resume']    # sheet name of Week1_Sorted.xlsx
-order2 = ['Main_Resume']    # sheet name of Week2_Sorted.xlsx
-output_order = order1       # sheet name of output file
+order1 = ['Main_Resume']    # Line_Mode of Week1
+order2 = ['Main_Resume']    # Line_Mode of Week2
+output_order = order1       # sheet name of Audit Report
 Enable_Productlines_Compare = False
 
 folder = str(pathlib.Path(__file__).parent.resolve())
